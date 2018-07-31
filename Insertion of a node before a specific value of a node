@@ -1,0 +1,114 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<iostream>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node *next;
+}*head;
+
+void createList(int n);
+void insertbefore(int data);
+void displayList();
+
+int main()
+{
+    int n, data;
+    printf("Enter the total number of nodes: ");
+    scanf("%d", &n);
+    createList(n);
+    printf("\nData in the list \n");
+    displayList();
+    printf("\nEnter the value before data is to be inserted: ");
+    scanf("%d", &data);
+    insertbefore(data);
+    printf("\nData in the list \n");
+    displayList();
+    return 0;
+}
+
+void createList(int n)
+{
+    struct node *newNode, *temp;
+    int data, i;
+    head = new node;
+    if(head == NULL)
+    {
+        printf("Unable to allocate memory.");
+    }
+    else
+    {
+        printf("Enter the data of node 1: ");
+        scanf("%d", &data);
+        head->data = data;
+        head->next = NULL;
+        temp = head;
+        for(i=2; i<=n; i++)
+        {
+            newNode = new node;
+            if(newNode == NULL)
+            {
+                printf("Unable to allocate memory.");
+                break;
+            }
+            else
+            {
+                printf("Enter the data of node %d: ", i);
+                scanf("%d", &data);
+                newNode->data = data;
+                newNode->next = NULL;
+                temp->next = newNode;
+                temp = temp->next;
+            }
+        }
+
+        printf("SINGLY LINKED LIST CREATED SUCCESSFULLY\n");
+    }
+}
+void insertbefore(int data)
+{
+    int count=0,a=0,data1;
+    struct node *temp,*newnode,*prev;
+    newnode = new node;
+    if(newnode==NULL){
+        cout<<"Empty List";
+    }
+    else
+    {
+        cout<<"Enter data to be inserted\n";
+        cin>>data1;
+       temp=head;
+       while(temp->data!=data){
+        temp=temp->next;
+        count++;
+        }
+        prev=head;
+        while(a!=(count-1)){
+            prev = prev->next;
+            a++;
+        }
+        newnode->data=data1;
+        newnode->next=temp;
+        prev->next=newnode;
+       }
+    }
+
+void displayList()
+{
+    struct node *temp;
+    if(head == NULL)
+    {
+        printf("List is empty.");
+    }
+    else
+    {
+        temp = head;
+        while(temp != NULL)
+        {
+            printf("Data = %d\n", temp->data);
+            temp = temp->next;
+        }
+    }
+}
